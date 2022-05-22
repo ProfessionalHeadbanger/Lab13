@@ -1,4 +1,4 @@
-﻿/*
+/*
 Файл student.dat
  фамилия, имя, отчество(40 символов);
  номер курса(1 символ);
@@ -39,14 +39,39 @@ private:
     char ed_form;
     exam result_exam;
 public:
-    student(ifstream& file);
+    //student(ifstream& file);
     student() = default;
+    void input_from_txt(ifstream& file);
     void print();
     void print_to_txt(ofstream& file);
     bool condition();
 };
 
-student::student(ifstream& file)
+//student::student(ifstream& file)
+//{
+//    file.getline(full_name, full_name_len);
+//    file >> course;
+//    file >> group;
+//    for (int i = 0; i < count_set; i++)
+//    {
+//        for (int j = 0; j < count_marks; j++)
+//        {
+//            file >> session_marks[i][j];
+//        }
+//    }
+//    file >> ed_form;
+//    file.ignore();
+//    file.getline(result_exam.exam_name, exam_name_len);
+//    file >> result_exam.exam_mark;
+//    if (!file.eof())
+//    {
+//        char separator[full_name_len];
+//        file.ignore();
+//        file.getline(separator, full_name_len);
+//    }
+//}
+
+void student::input_from_txt(ifstream& file)
 {
     file.getline(full_name, full_name_len);
     file >> course;
@@ -106,8 +131,6 @@ void student::print_to_txt(ofstream& file)
     case 'о': file << "Очная " << '\n'; break;
     case 'з': file << "Очно-заочная " << '\n'; break;
     }
-    file << "Результат экзамена: ";
-    file << result_exam.exam_name << " - " << result_exam.exam_mark << '\n\n';
 }
 
 bool student::condition()
@@ -172,7 +195,8 @@ int main()
     student* students = new student[n];
     for (int i = 0; i < n; i++)
     {
-        students[i] = student(file_input);
+        //students[i] = student(file_input);
+        students[i].input_from_txt(file_input);
     }
     file_input.close();
 
